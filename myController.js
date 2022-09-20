@@ -50,10 +50,9 @@ app.controller('createDoc', ['$scope', '$rootScope', 'md5', function ($scope, $r
 app.controller('persistDoc',
     function($scope){   
         $scope.item = 'b'
-        $scope.list = ['a', 'c'];
-        $scope.arrLst = function(it){
-            $scope.list.push($scope.item)
-            alert(it)
-            
+        $scope.list = [1];
+        $scope.push = function(it){
+            alert(it);
+            $scope.list.push($scope.item);            
         }
     })

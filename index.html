@@ -52,9 +52,9 @@
         </symbol>
     </svg>
 
-    <main class="d-flex flex-nowrap" ng-app="myApp" ng-controller="createDoc" >
+    <main class="d-flex flex-nowrap" ng-app="myApp" ng-controller="createDoc">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-            style="width: 280px; height: 100vh; background-color: #212529;">
+            style="width: 280px; height: 100vh; background-color: #212529;" ng-controller="persistDoc" >
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <svg class="bi pe-none me-2" width="40" height="32" fill="#FFF">
                     <use xlink:href="#check-lg"></use>
@@ -63,17 +63,18 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
-                <ol ng-controller="persistDoc">
-                    <li class="nav-item" ng-repeat="i in list" style="color: #FFF;">{{ i }}</li>
+                <ol>
+                    <li class="nav-item" ng-repeat="i in list track by $index" style="color: #FFF;">{{ i }}</li>
                 </ol>
                 <li class="nav-item" ng-controller="showInputNewList">
                     <div>
-                        <div style="color: #FFF; display:{{view}}" class="mt-1 mb-3"  ng-controller="persistDoc">
+                        <div style="color: #FFF; display:{{view}}" class="mt-1 mb-3">
                             <input type="text" class="form-control mb-2 mt-2" placeholder="Nova Lista" aria-label="First name" ng-model="description">
                             <svg class="bi pe-none me-2" width="16" height="16" fill="#FFF">
                                 <use xlink:href="#check-lg"></use>
                             </svg>
-                            <button ng-click="arrLst({{ newList }})">Salvar</button>
+                            <a href="#" ng-click="push('{{ newList }}')">Salvar</a>
+                            <p  style="color: #FFF;"></p>
                         </div>
                     </div>
                     <a href="#" class="nav-link active" aria-current="page" ng-click="showNewList()">
