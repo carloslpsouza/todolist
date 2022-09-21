@@ -53,29 +53,30 @@
         </symbol>
     </svg>
 
-    <main class="d-flex flex-nowrap" ng-app="myApp">
+    <main class="d-flex flex-nowrap" ng-app="myApp" ng-controller="showTaskDetails">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-            style="width: 280px; height: 100vh; background-color: #212529;" ng-controller="persistDoc" >
+            style="width: 280px; height: 100vh; background-color: #212529;" ng-controller="createList">
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <svg class="bi pe-none me-2" width="40" height="32" fill="#FFF">
                     <use xlink:href="#check-lg"></use>
                 </svg>
                 <span class="fs-4">Todo List</span>
             </a>
-            <hr>
+            <hr style="color: #fff;">
             <ul class="nav nav-pills flex-column mb-auto">
                 <ol style="max-width: 240px;">
-                    <li class="nav-item" ng-repeat="i in list track by $index" style="color: #FFF;"><a href="#">{{ i }}</a></li>
+                    <li class="nav-item" ng-repeat="l in list track by $index" style="color: #FFF;"><a href="#"
+                            ng-click="showDetails()">{{ l }}</a></li>
                 </ol>
                 <li class="nav-item" ng-controller="showInputNewList">
-                    <div ng-controller="createDoc">
-                        <div style="color: #FFF; display:{{view}}" class="mt-1 mb-3">
-                            <input type="text" class="form-control mb-2 mt-3" placeholder="Nova Lista" aria-label="First name" ng-model="description">
+                    <div ng-controller="createDocList">
+                        <div style="color: #FFF; display:{{viewInputList}}" class="mt-1 mb-3">
+                            <input type="text" class="form-control mb-2 mt-3" placeholder="Nova Lista"
+                                ng-model="descriptionList">
                             <svg class="bi pe-none me-2" width="16" height="16" fill="#FFF">
                                 <use xlink:href="#check-lg"></use>
                             </svg>
                             <a href="#" ng-click="push()">Salvar</a>
-                            <p  style="color: #FFF;"></p>
                         </div>
                     </div>
                     <a href="#" class="nav-link active" aria-current="page" ng-click="showNewList()">
@@ -87,7 +88,25 @@
                 </li>
             </ul>
         </div>
-        a
+        <div style="width: 100vw;" class="text-center" ng-controller="showInputNewTask">
+            <div  class="m-3" style="display:{{viewInputTask}}" ng-controller="createTask">
+                <h1 class="text-center">Lista: {{title}}</h1>
+                <hr>
+                <ol>
+                    <li class="nav-item" ng-repeat="t in task track by $index">
+                        <a href="#"ng-click="showDetails()" style="color: #000;" >{{ t }}</a>
+                    </li>
+                </ol>
+                <div  ng-controller="createDocTask">
+                    <input type="text" class="form-control" placeholder="Nova tarefa" ng-model="descriptionTask" >
+                    <svg class="bi pe-none me-2" width="16" height="16" fill="#000">
+                        <use xlink:href="#check-lg"></use>
+                    </svg>
+                    <a href="#" style="color: #000;" ng-click="push()">Adcionar</a>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
+
 </html>
