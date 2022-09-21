@@ -1,4 +1,7 @@
-# todolist
-Entrega de trabalho AP1 - Frameworks e desenvolvimento de aplicações e serviços web - O projeto desenvolvido utilizando Angular JS, consiste em aplicação SPA de um sistema TodoList
+# Projeto
+Entrega de trabalho AP1 - Frameworks e desenvolvimento de aplicações e serviços web - O projeto foi desenvolvido utilizando o framework Angular JS.
 
-![frmw](https://user-images.githubusercontent.com/55721262/191588127-e140317c-8fe2-4512-8d68-0888d97f9ca2.png)
+# TodoList
+Aplicação SPA de um sistema TodoList, nele é possivel triar listas de tarefas, e tarefas associadas.
+
+![frmw](https://user-images.githubusercontent.com/55721262/191593066-ce4b8a2f-c11b-4716-ae55-4e59f58df770.png)
