@@ -93,8 +93,9 @@ app.controller('createTask',['$scope', '$rootScope',
             let id = $rootScope.newTask.id;
             let description = $rootScope.newTask.description;
             let status = $rootScope.newTask.status;
+            let idList = $rootScope.newList.id;
             if($rootScope.newTask.status === 'open'){
-                $scope.taskOpen.push({'id': id, 'description': description, 'status': status});   
+                $scope.taskOpen.push({'id': id, 'description': description, 'status': status, 'idList': idList});   
             }else{
                 $scope.taskClose.push({'id': id, 'description': description, 'status': status});   
             }                               
@@ -104,11 +105,12 @@ app.controller('createTask',['$scope', '$rootScope',
             console.log($scope.taskOpen);
             //let idx = $scope.taskOpen.indexOf(key);
             let idx = $scope.taskOpen.findIndex( (itm)=> itm.id === key );
+            console.log(idx);
             $scope.taskOpen[idx].status = 'close';
-            $scope.taskOpen.splice(idx,1);
             $scope.taskClose.push($scope.taskOpen[idx]); 
+            $scope.taskOpen.splice(idx, 1);            
             
-            console.log($scope.taskOpen);
+            console.log($scope.taskClose);
         }
     }
 ])
