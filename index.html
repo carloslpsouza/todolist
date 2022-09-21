@@ -89,21 +89,32 @@
             </ul>
         </div>
         <div style="width: 100vw;" class="text-center" ng-controller="showInputNewTask">
-            <div  class="m-3" style="display:{{viewInputTask}}" ng-controller="createTask">
+            <div class="m-3" style="display:{{viewInputTask}}" ng-controller="createTask">
                 <h1 class="text-center">Lista: {{title}}</h1>
                 <hr>
                 <ol>
                     <li class="nav-item" ng-repeat="to in taskOpen track by $index" ng-click="closeTask(to.id)">
-                        <a href="#" style="color: #000;" >{{ to.description }}</a>
+                        <a href="#" style="color: #000;">{{ to.description }}</a>
                     </li>
                 </ol>
-                <div  ng-controller="createDocTask">
-                    <input type="text" class="form-control" placeholder="Nova tarefa" ng-model="descriptionTask" >
+                <div ng-controller="createDocTask">
+                    <input type="text" class="form-control" placeholder="Nova tarefa" ng-model="descriptionTask">
                     <svg class="bi pe-none me-2" width="16" height="16" fill="#000">
                         <use xlink:href="#check-lg"></use>
                     </svg>
                     <a href="#" style="color: #000;" ng-click="push()">Adcionar</a>
                 </div>
+                <div>
+                    <h1 class="text-center">Encerrados</h1>
+                    <hr>
+                    <ol>
+                        <li class="nav-item" ng-repeat="tc in taskClose track by $index">
+                            <a href="#" style="color: #000;">{{ tc.description }}</a>
+                        </li>
+                    </ol>
+
+                </div>
+
             </div>
         </div>
     </main>
