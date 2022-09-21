@@ -1,10 +1,3 @@
-app.controller("controllerTodo",
-    function ($scope) {
-        $scope.data
-        $scope.status
-        $scope.description
-    }
-);
 app.controller("showInputNewList",
     function ($scope) {
         $scope.viewInputList = 'none';
@@ -44,11 +37,11 @@ app.controller('showTaskDetails',['$scope', '$rootScope',
     }
 ]);
 
-app.controller("docGenerate",
+//Para o futuro
+/* app.controller("docGenerate",
     function ($scope) {
         $scope.name = 'none';
         $scope.ipt
-
         $scope.readFile = function () {
             let file = $scope.ipt.files[0];
             let fileReader = new FileReader();
@@ -62,7 +55,7 @@ app.controller("docGenerate",
 
         }
     }
-);
+); */
 
 app.controller('createDocList', ['$scope', '$rootScope', 'md5', function ($scope, $rootScope, md5) {
     $scope.$watch('descriptionList', function () {
@@ -72,9 +65,10 @@ app.controller('createDocList', ['$scope', '$rootScope', 'md5', function ($scope
     });
 }]);
 
-app.controller('createDocTask', ['$scope', '$rootScope', function ($scope, $rootScope) {
+app.controller('createDocTask', ['$scope', '$rootScope', 'md5',function ($scope, $rootScope, md5) {
     $scope.$watch('descriptionTask', function () {
-        $scope.tempTask = {'description': $scope.descriptionTask, 'status': 'open'};
+        let d = new Date();
+        $scope.tempTask = {'id': md5.createHash(d.getMilliseconds().toString()), 'description': $scope.descriptionTask, 'status': 'open'};
         console.log($scope.tempTask)
         $rootScope.newTask = $scope.tempTask;             
     });
@@ -92,10 +86,27 @@ app.controller('createList',['$scope', '$rootScope',
 
 app.controller('createTask',['$scope', '$rootScope',
     function($scope, $rootScope){
-        $scope.task = [];
+        $scope.taskOpen = [];
+        $scope.taskClose = [];
         $scope.push = function(){
-            console.log($rootScope.newTask); 
-            $scope.task.push($rootScope.newTask.description);          
+            console.log($rootScope.newTask);
+            let id = $rootScope.newTask.id;
+            let description = $rootScope.newTask.description;
+            let status = $rootScope.newTask.status;
+            if($rootScope.newTask.status == 'open'){
+                $scope.taskOpen.push({'id': id, 'description': description, 'status': status});   
+            }else{
+                $scope.taskClose.push({'id': id, 'description': description, 'status': status});   
+            }                               
+        }
+        $scope.closeTask = function(key){
+            console.log(key);
+            console.log($scope.taskOpen);
+            //let idx = $scope.taskOpen.indexOf(key);
+            let idx = $scope.taskOpen.findIndex( (itm)=> itm.id === key );
+            $scope.taskOpen[idx].status = 'close';
+            
+            console.log($scope.taskOpen[idx]);
         }
     }
 ])

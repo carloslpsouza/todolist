@@ -93,8 +93,8 @@
                 <h1 class="text-center">Lista: {{title}}</h1>
                 <hr>
                 <ol>
-                    <li class="nav-item" ng-repeat="t in task track by $index">
-                        <a href="#"ng-click="showDetails()" style="color: #000;" >{{ t }}</a>
+                    <li class="nav-item" ng-repeat="to in taskOpen track by $index" ng-click="closeTask(to.id)">
+                        <a href="#" style="color: #000;" >{{ to.description }}</a>
                     </li>
                 </ol>
                 <div  ng-controller="createDocTask">
