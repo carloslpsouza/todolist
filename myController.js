@@ -12,6 +12,7 @@ app.controller("showInputNewList",
         }
     }
 );
+
 app.controller("showInputNewTask", ['$scope', '$rootScope',
     function ($scope, $rootScope) {
         $scope.viewInputTask = 'none';
@@ -28,10 +29,9 @@ app.controller("showInputNewTask", ['$scope', '$rootScope',
 app.controller('showTaskDetails',['$scope', '$rootScope',
     function($scope, $rootScope){        
         $scope.showDetails = function(idx){
-            console.log(idx);
+            //console.log(idx);
             $scope.title = $rootScope.newList.descriptionList;
             $rootScope.idList = idx;
-            //$scope.inpt = '';
             $rootScope.showNewTask();
         }
     }
@@ -40,7 +40,7 @@ app.controller('showTaskDetails',['$scope', '$rootScope',
 app.controller('createDocList', ['$scope', '$rootScope', 'md5', function ($scope, $rootScope, md5) {
     $scope.$watch('descriptionList', function () {
         $scope.tempList = {'id': md5.createHash($scope.descriptionList || ''), 'description': $scope.descriptionList};
-        console.log($scope.tempList)
+        //console.log($scope.tempList)
         $rootScope.newList = $scope.tempList;             
     });
 }]);
@@ -49,7 +49,7 @@ app.controller('createDocTask', ['$scope', '$rootScope', 'md5',function ($scope,
     $scope.$watch('descriptionTask', function () {
         let d = new Date();
         $scope.tempTask = {'id': md5.createHash(d.getMilliseconds().toString()), 'description': $scope.descriptionTask, 'status': 'open', 'idList': $rootScope.idList};
-        console.log($scope.tempTask)
+        //console.log($scope.tempTask)
         $rootScope.newTask = $scope.tempTask;             
     });
 }]);
@@ -58,7 +58,7 @@ app.controller('createList',['$scope', '$rootScope',
     function($scope, $rootScope){
         $scope.list = [];
         $scope.push = function(){
-            console.log($rootScope.newList); 
+            //console.log($rootScope.newList); 
             $scope.list.push({'id': $rootScope.newList.id, 'description': $rootScope.newList.description});          
         }
     }
@@ -69,7 +69,7 @@ app.controller('createTask',['$scope', '$rootScope',
         $scope.taskOpen = [];
         $scope.taskClose = [];
         $scope.push = function(){
-            console.log($rootScope.newTask);
+            //console.log($rootScope.newTask);
             let id = $rootScope.newTask.id;
             let description = $rootScope.newTask.description;
             let status = $rootScope.newTask.status;
@@ -81,16 +81,15 @@ app.controller('createTask',['$scope', '$rootScope',
             }                               
         }
         $scope.closeTask = function(key){
-            console.log(key);
-            console.log($scope.taskOpen);
+            //console.log(key);
+            //console.log($scope.taskOpen);
             //let idx = $scope.taskOpen.indexOf(key);
             let idx = $scope.taskOpen.findIndex( (itm)=> itm.id === key );
-            console.log(idx);
+            //console.log(idx);
             $scope.taskOpen[idx].status = 'close';
             $scope.taskClose.push($scope.taskOpen[idx]); 
-            $scope.taskOpen.splice(idx, 1);            
-            
-            console.log($scope.taskClose);
+            $scope.taskOpen.splice(idx, 1);    
+            //console.log($scope.taskClose);
         }
     }
 ])
