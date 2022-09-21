@@ -9,7 +9,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="angular.min.js"></script>
+    <!-- <script src="angular.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="myApp.js"></script>
     <script src="myController.js"></script>
     <script src="./node_modules/angular-md5/angular-md5.js"></script>
@@ -52,7 +53,7 @@
         </symbol>
     </svg>
 
-    <main class="d-flex flex-nowrap" ng-app="myApp" ng-controller="createDoc">
+    <main class="d-flex flex-nowrap" ng-app="myApp">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
             style="width: 280px; height: 100vh; background-color: #212529;" ng-controller="persistDoc" >
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -63,17 +64,17 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
-                <ol>
-                    <li class="nav-item" ng-repeat="i in list track by $index" style="color: #FFF;">{{ i }}</li>
+                <ol style="max-width: 240px;">
+                    <li class="nav-item" ng-repeat="i in list track by $index" style="color: #FFF;"><a href="#">{{ i }}</a></li>
                 </ol>
                 <li class="nav-item" ng-controller="showInputNewList">
-                    <div>
+                    <div ng-controller="createDoc">
                         <div style="color: #FFF; display:{{view}}" class="mt-1 mb-3">
-                            <input type="text" class="form-control mb-2 mt-2" placeholder="Nova Lista" aria-label="First name" ng-model="description">
+                            <input type="text" class="form-control mb-2 mt-3" placeholder="Nova Lista" aria-label="First name" ng-model="description">
                             <svg class="bi pe-none me-2" width="16" height="16" fill="#FFF">
                                 <use xlink:href="#check-lg"></use>
                             </svg>
-                            <a href="#" ng-click="push('{{ newList }}')">Salvar</a>
+                            <a href="#" ng-click="push()">Salvar</a>
                             <p  style="color: #FFF;"></p>
                         </div>
                     </div>
@@ -88,10 +89,5 @@
         </div>
         a
     </main>
-    <script src="./Sidebars · Bootstrap v5.2_files/bootstrap.bundle.min.js.baixados"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous">
-    </script>
-    <script src="./Sidebars · Bootstrap v5.2_files/sidebars.js.baixados"></script>
 </body>
 </html>

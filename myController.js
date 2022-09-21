@@ -40,19 +40,20 @@ app.controller("docGenerate",
     }
 );
 
-
 app.controller('createDoc', ['$scope', '$rootScope', 'md5', function ($scope, $rootScope, md5) {
     $scope.$watch('description', function () {
-        $scope.newList = {"id": md5.createHash($scope.description || ''), "description": $scope.description};
+        $scope.tempList = {'id': md5.createHash($scope.description || ''), 'description': $scope.description};
+        console.log($scope.tempList)
+        $rootScope.newList = $scope.tempList;             
     });
 }]);
 
-app.controller('persistDoc',
-    function($scope){   
-        $scope.item = 'b'
-        $scope.list = [1];
-        $scope.push = function(it){
-            alert(it);
-            $scope.list.push($scope.item);            
+app.controller('persistDoc',['$scope', '$rootScope',
+    function($scope, $rootScope){
+        $scope.list = [];
+        $scope.push = function(){
+            console.log($rootScope.newList); 
+            $scope.list.push($rootScope.newList.description);
+            $rootScope.newList =''          
         }
-    })
+    }])
