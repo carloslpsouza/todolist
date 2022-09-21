@@ -65,8 +65,8 @@
             <hr style="color: #fff;">
             <ul class="nav nav-pills flex-column mb-auto">
                 <ol style="max-width: 240px;">
-                    <li class="nav-item" ng-repeat="l in list track by $index" style="color: #FFF;"><a href="#"
-                            ng-click="showDetails()">{{ l }}</a></li>
+                    <li class="nav-item" ng-repeat="l in list track by $index" ng-click="showDetails(l.id)" style="color: #FFF;"><a href="#"
+                    >{{ l.description }}</a></li>
                 </ol>
                 <li class="nav-item" ng-controller="showInputNewList">
                     <div ng-controller="createDocList">
@@ -88,12 +88,12 @@
                 </li>
             </ul>
         </div>
-        <div style="width: 100vw;" class="text-center" ng-controller="showInputNewTask">
-            <div class="m-3" style="display:{{viewInputTask}}" ng-controller="createTask">
+        <div style="width: 100vw; height: 100vh;" class="text-center" ng-controller="showInputNewTask">
+            <div class="m-3" style="width: 50vh; display:{{viewInputTask}}" ng-controller="createTask">
                 <h1 class="text-center">Lista: {{title}}</h1>
                 <hr>
                 <ol>
-                    <li class="nav-item" ng-repeat="to in taskOpen track by $index" ng-click="closeTask(to.id)">
+                    <li class="nav-item" ng-repeat="to in taskOpen | filter: idList track by $index" ng-click="closeTask(to.id)">
                         <a href="#" style="color: #000;">{{ to.description }}</a>
                     </li>
                 </ol>
@@ -104,11 +104,12 @@
                     </svg>
                     <a href="#" style="color: #000;" ng-click="push()">Adcionar</a>
                 </div>
-                <div>
+                <br>
+                <br>
+                <div style="height: 50vh">
                     <h1 class="text-center">Encerrados</h1>
-                    <hr>
                     <ol>
-                        <li class="nav-item" ng-repeat="tc in taskClose track by $index">
+                        <li class="nav-item" ng-repeat="tc in taskClose | filter: idList track by $index">
                             <a href="#" style="color: #000;">{{ tc.description }}</a>
                         </li>
                     </ol>

@@ -20,8 +20,6 @@ app.controller("showInputNewTask", ['$scope', '$rootScope',
         $rootScope.showNewTask = function () {
             if ($scope.viewInputTask == 'none') {
                 return [$scope.viewInputTask = 'block', $scope.textBtn = 'Cancelar']
-            } else {
-                return [$scope.viewInputTask = 'none', $scope.textBtn = 'Nova Lista']
             }
         }
     }
@@ -29,13 +27,73 @@ app.controller("showInputNewTask", ['$scope', '$rootScope',
 
 app.controller('showTaskDetails',['$scope', '$rootScope',
     function($scope, $rootScope){        
-        $scope.showDetails = function(){
+        $scope.showDetails = function(idx){
+            console.log(idx);
             $scope.title = $rootScope.newList.descriptionList;
-            $scope.inpt = '';
+            $rootScope.idList = idx;
+            //$scope.inpt = '';
             $rootScope.showNewTask();
         }
     }
 ]);
+
+app.controller('createDocList', ['$scope', '$rootScope', 'md5', function ($scope, $rootScope, md5) {
+    $scope.$watch('descriptionList', function () {
+        $scope.tempList = {'id': md5.createHash($scope.descriptionList || ''), 'description': $scope.descriptionList};
+        console.log($scope.tempList)
+        $rootScope.newList = $scope.tempList;             
+    });
+}]);
+
+app.controller('createDocTask', ['$scope', '$rootScope', 'md5',function ($scope, $rootScope, md5) {
+    $scope.$watch('descriptionTask', function () {
+        let d = new Date();
+        $scope.tempTask = {'id': md5.createHash(d.getMilliseconds().toString()), 'description': $scope.descriptionTask, 'status': 'open', 'idList': $rootScope.idList};
+        console.log($scope.tempTask)
+        $rootScope.newTask = $scope.tempTask;             
+    });
+}]);
+
+app.controller('createList',['$scope', '$rootScope',
+    function($scope, $rootScope){
+        $scope.list = [];
+        $scope.push = function(){
+            console.log($rootScope.newList); 
+            $scope.list.push({'id': $rootScope.newList.id, 'description': $rootScope.newList.description});          
+        }
+    }
+])
+
+app.controller('createTask',['$scope', '$rootScope',
+    function($scope, $rootScope){
+        $scope.taskOpen = [];
+        $scope.taskClose = [];
+        $scope.push = function(){
+            console.log($rootScope.newTask);
+            let id = $rootScope.newTask.id;
+            let description = $rootScope.newTask.description;
+            let status = $rootScope.newTask.status;
+            let idList = $rootScope.idList;
+            if($rootScope.newTask.status === 'open'){
+                $scope.taskOpen.push({'id': id, 'description': description, 'status': status, 'idList': idList});   
+            }else{
+                $scope.taskClose.push({'id': id, 'description': description, 'status': status, 'idList': idList});   
+            }                               
+        }
+        $scope.closeTask = function(key){
+            console.log(key);
+            console.log($scope.taskOpen);
+            //let idx = $scope.taskOpen.indexOf(key);
+            let idx = $scope.taskOpen.findIndex( (itm)=> itm.id === key );
+            console.log(idx);
+            $scope.taskOpen[idx].status = 'close';
+            $scope.taskClose.push($scope.taskOpen[idx]); 
+            $scope.taskOpen.splice(idx, 1);            
+            
+            console.log($scope.taskClose);
+        }
+    }
+])
 
 //Para o futuro
 /* app.controller("docGenerate",
@@ -56,59 +114,3 @@ app.controller('showTaskDetails',['$scope', '$rootScope',
         }
     }
 ); */
-
-app.controller('createDocList', ['$scope', '$rootScope', 'md5', function ($scope, $rootScope, md5) {
-    $scope.$watch('descriptionList', function () {
-        $scope.tempList = {'id': md5.createHash($scope.descriptionList || ''), 'description': $scope.descriptionList};
-        console.log($scope.tempList)
-        $rootScope.newList = $scope.tempList;             
-    });
-}]);
-
-app.controller('createDocTask', ['$scope', '$rootScope', 'md5',function ($scope, $rootScope, md5) {
-    $scope.$watch('descriptionTask', function () {
-        let d = new Date();
-        $scope.tempTask = {'id': md5.createHash(d.getMilliseconds().toString()), 'description': $scope.descriptionTask, 'status': 'open'};
-        console.log($scope.tempTask)
-        $rootScope.newTask = $scope.tempTask;             
-    });
-}]);
-
-app.controller('createList',['$scope', '$rootScope',
-    function($scope, $rootScope){
-        $scope.list = [];
-        $scope.push = function(){
-            console.log($rootScope.newList); 
-            $scope.list.push($rootScope.newList.description);          
-        }
-    }
-])
-
-app.controller('createTask',['$scope', '$rootScope',
-    function($scope, $rootScope){
-        $scope.taskOpen = [];
-        $scope.taskClose = [];
-        $scope.push = function(){
-            console.log($rootScope.newTask);
-            let id = $rootScope.newTask.id;
-            let description = $rootScope.newTask.description;
-            let status = $rootScope.newTask.status;
-            if($rootScope.newTask.status === 'open'){
-                $scope.taskOpen.push({'id': id, 'description': description, 'status': status});   
-            }else{
-                $scope.taskClose.push({'id': id, 'description': description, 'status': status});   
-            }                               
-        }
-        $scope.closeTask = function(key){
-            console.log(key);
-            console.log($scope.taskOpen);
-            //let idx = $scope.taskOpen.indexOf(key);
-            let idx = $scope.taskOpen.findIndex( (itm)=> itm.id === key );
-            $scope.taskOpen[idx].status = 'close';
-            $scope.taskOpen.splice(idx,1);
-            $scope.taskClose.push($scope.taskOpen[idx]); 
-            
-            console.log($scope.taskOpen);
-        }
-    }
-])
